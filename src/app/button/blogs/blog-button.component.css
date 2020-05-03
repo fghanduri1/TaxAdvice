@@ -1,0 +1,16 @@
+mat-card, mat-accordion{
+  width: 80%;
+  margin: auto;
+}
+mat-form-field, mat-accordion,
+textarea{
+  width: 100%;
+}
+
+:host{
+  display: block;
+  margin-top: 1rem;;
+}
+.info-text{
+  text-align: center;
+}

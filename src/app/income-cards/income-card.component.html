@@ -1,0 +1,127 @@
+
+<mat-card class="firstSection">
+	<mat-card-title>Family Status</mat-card-title>
+	<mat-card-content>
+		<p>
+			<mat-radio-group class="example-radio-group" [(ngModel)]="marital">
+				<mat-radio-button class="example-radio-button" value="S">
+					Single
+				</mat-radio-button>
+				&nbsp;
+				<mat-radio-button class="example-radio-button" value="M">
+					Married
+				</mat-radio-button>
+			</mat-radio-group>
+			&nbsp;
+			<span *ngIf="marital == 'M'">
+
+  </span>
+  &nbsp;
+</p>
+<p *ngIf="marital == 'M'">
+
+</p>
+<p>
+  <label for="" style="padding-right: 10px">Currency </label>  <mat-slide-toggle [(ngModel)]="currency">{{(currency ? 'USD' : 'GBP')}}</mat-slide-toggle>
+</p>
+<p style="display: none">
+ <label for="">Calculated Decrease?</label> &nbsp; <mat-slide-toggle [(ngModel)]="applyDecrease"></mat-slide-toggle> &nbsp; <mat-checkbox *ngIf="applyDecrease" [(ngModel)]="recursiveDecrease">Recursive?</mat-checkbox>
+</p>
+
+ <h3>Exemption Amount: {{familyExemptionAmount / (currency ? 0.8 : 1) | currency: (currency ? 'USD' : 'GBP ')}}</h3>
+
+  </mat-card-content>
+
+</mat-card>
+<br>
+<mat-card>
+  <mat-card-title>Yearly Income in GBP</mat-card-title>
+<mat-card-content>
+ <div fxFill fxLayout fxLayoutAlign="space-between center">
+    <button mat-icon-button long-press (onLongPressing)="income = buttonShiftDown(income, inc.step, inc.min)">
+    <mat-icon style="padding-bottom: 2px" aria-label="Example icon-button with a heart icon">keyboard_arrow_left</mat-icon>
+    </button>
+    <mat-slider #inc fxFlex
+        [max]="120"
+        [min]="1"
+        [step]="1"
+        [thumbLabel]="true"
+        [displayWith]="formatLabel"
+        [(ngModel)]="income" >
+    </mat-slider>
+    <button mat-icon-button long-press (onLongPressing)="income = buttonShiftUp(income, inc.step, inc.max)">
+    <mat-icon style="padding-bottom: 2px" aria-label="Example icon-button with a heart icon">keyboard_arrow_right</mat-icon>
+    </button>
+ </div >
+
+<div fxLayout fxLayoutAlign="space-between center">
+    <button long-press (onLongPressing)="incomeDetails = buttonShiftDown(incomeDetails, incDet.step, incDet.min)" mat-icon-button >
+    <mat-icon style="padding-bottom: 2px">keyboard_arrow_left</mat-icon>
+    </button>
+    <mat-slider #incDet fxFlex
+        [max]="1000000"
+        [min]="0"
+        [step]="1000"
+        [thumbLabel]="true"
+        [displayWith]="formatDetails"
+        [(ngModel)]="incomeDetails" >
+    </mat-slider>
+
+     <button long-press (onLongPressing)="incomeDetails = buttonShiftUp(incomeDetails, incDet.step, incDet.max)" mat-icon-button>
+    <mat-icon style="padding-bottom: 2px" aria-label="Example icon-button with a heart icon">keyboard_arrow_right</mat-icon>
+    </button>
+ </div >
+    <h3>
+      Total: {{totalIncome / (currency ? 0.8 : 1) | currency: (currency ? 'USD' : 'GBP ')}}
+    </h3>
+  </mat-card-content>
+</mat-card>
+<br>
+<mat-card>
+  <mat-card-title>
+    Taxable Income = {{calcIncome / (currency ? 0.8 : 1) | currency:(currency ? 'USD' : 'GBP ')}}
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{totalIncome / (currency ? 0.8 : 1) | currency: (currency ? 'USD' : 'GBP ')}} - {{familyExemptionAmount / (currency ? 0.8 : 1) | currency:(currency ? 'USD' : 'GBP ')}}
+  </mat-card-subtitle>
+  <mat-card-content>
+    <div fxflex fxLayout >
+      <mat-slider
+      [max]="6"
+      [min]="0"
+      [step]="1"
+      [disabled]="true"
+      [vertical]="true"
+      [invert]="true"
+      [ngModel]="incomeIndex"
+      [thumbLabel]="true">
+  </mat-slider>
+    <table style="display: inline;">
+      <tr>
+        <th >Income Range</th>
+        <th>Tax Rate</th>
+        <th *ngIf="applyDecrease">Decrease</th>
+        <th>Calc.</th>
+      </tr>
+      <tr [ngClass]="(i < incomeIndex?'selected': '')" *ngFor="let b of brackets; index as i">
+        <td ><{{b.id / (currency ? 0.8 : 1) | currency: (currency ? 'USD' : 'GBP ')}}</td>
+        <td>{{b.taxRate / 100 | percent}}</td>
+        <td *ngIf="applyDecrease">{{(applyDecrease ? b.decrease / (currency ? 0.8 : 1) : 0) | currency: (currency ? 'USD' : 'GBP ') }}</td>
+        <td>{{(i < incomeIndex ? (b.calculated / (currency ? 0.8 : 1) | currency: (currency ? 'USD' : 'GBP ') ): '')}}</td>
+      </tr>
+    </table>
+</div>
+  </mat-card-content>
+</mat-card>
+
+<br>
+
+<mat-card class = "result">
+
+    <h1>
+     <b> Total Yearly: </b>{{totalTaxAmount | currency:(currency ? 'USD' : 'GBP ')}}<br>
+     <b> Total Monthly: </b> {{totalTaxAmount / 12 | currency:(currency ? 'USD' : 'GBP ')}}
+    </h1>
+
+</mat-card>
+<br>

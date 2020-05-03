@@ -1,0 +1,53 @@
+<mat-card>
+  <form (submit)= "onSavePost(postForm)" #postForm="ngForm">
+    <mat-form-field>
+      <input
+      matInput type="text"
+      name="title"
+      [ngModel]="post?.title"
+      required
+      minlength="3"
+      placeholder="Blog Title"
+      #title="ngModel">
+      <mat-error *ngIf= "title.invalid">Please enter a post title *</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+      matInput rows="4"
+      name="content"
+      required
+      minlength="3"
+      placeholder="Blog Content"
+      [ngModel]="post?.content"
+      #content="ngModel"
+      ></textarea>
+      <mat-error *ngIf= "content.invalid">Please enter a post content *</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="warn"
+      type="submit">Save Post</button>
+    </form>
+</mat-card>
+
+<br>
+<mat-card>
+<mat-accordion multi = "true" *ngIf= "posts.length>0">
+  <mat-expansion-panel *ngFor="let post of posts">
+    <mat-expansion-panel-header>
+      {{post.title}}
+    </mat-expansion-panel-header>
+    <p>{{post.content}}</p>
+    <mat-action-row>
+      <a mat-button color="primary" [routerLink]= "['/edit', post.id]">EDIT</a>
+      <button mat-button color="warn" (click)= "onDelete(post.id)">DELETE</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
+<p class="info-text mat-body-1" *ngIf= "posts.length <= 0">No posts Added yet!</p>
+</mat-card>
+<br>
+
+<!-- <p class="info-text mat-body-1" *ngIf= "posts.length <= 0">No posts Added yet!</p> -->

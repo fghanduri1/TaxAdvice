@@ -1,0 +1,38 @@
+.mat-card-title{
+  width: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.task4{
+  width: 40%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+.task1{
+  width: 40%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+
+}
+
+.task2{
+  width: 40%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+/* .section {
+  vertical-align: middle;
+  height: 100%;
+} */
+

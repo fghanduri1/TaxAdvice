@@ -1,0 +1,12 @@
+
+p, h1, h2, table, label {
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.selected {
+  font-weight: bold
+}
+
+.result{
+  position: relative;
+}
