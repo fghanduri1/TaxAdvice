@@ -7,7 +7,7 @@ const Post = require('./models/post');
 
 const app = express();
 
-mongoose.connect("mongodb+srv://fatima:ORmBz57WSb5jPmup@post-cjqbk.mongodb.net/node-angular?retryWrites=true&w=majority")
+mongoose.connect("ADD MONGODB KEY HERE")
  .then (() => {
     console.log('Connected to Database!')
  })
