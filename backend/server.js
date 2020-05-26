@@ -1,7 +1,10 @@
+//In this section the Express Server is set and error handling for this server is added
+
 const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
+//port is assigned 
 const normalizePort = val => {
   var port = parseInt(val, 10);
 
