@@ -1,3 +1,7 @@
+//in this class the front end is completed for the blogging page 
+//where imports for all the modules used are added initially 
+
+
 import {Component, OnInit, OnDestroy } from '@angular/core';
 //import { CommonModule } from '@angular/common';
 
@@ -13,6 +17,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
   templateUrl: 'blog-button.component.html',
   styleUrls: ['blog-button.component.css'],
 })
+//post values are assigned and gathered from the user on the front end
 export class Blogs implements OnInit, OnDestroy, OnInit{
   enteredTitle = "";
   enteredContent = "";
@@ -20,10 +25,14 @@ export class Blogs implements OnInit, OnDestroy, OnInit{
   private postId: string;
   post: Post;
 
+//post service class is used and an activated route is added
  constructor(public postsService: PostsService, public route: ActivatedRoute){}
 
 
-
+//when a user clicks the save post button, the ngFrom is processed 
+//if this form is invalid then it wouldn't return anything 
+//if it is valid then it would take in what the user entered and would send to backend
+//the form is then reset
   onSavePost(form: NgForm){
     if (form.invalid){
       return
@@ -47,6 +56,9 @@ export class Blogs implements OnInit, OnDestroy, OnInit{
       .subscribe((posts:Post[])=>{
         this.posts=posts;
       });
+
+//parammap is used and provides access to the required and optional parameters specific to a route. The map supports retrieving a single value with get() or multiple values
+// The subscribe() call returns a Subscription object
     this.route.paramMap.subscribe((paramMap: ParamMap) =>{
         if (paramMap.has('postId')){
           this.mode = 'edit';
@@ -60,7 +72,7 @@ export class Blogs implements OnInit, OnDestroy, OnInit{
         }
     });
   }
-
+//method for when the user wants to delete a poar
   onDelete(postId: string){
     this.postsService.deletePost(postId);
 
