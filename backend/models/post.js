@@ -1,3 +1,6 @@
+//connection to backend to mongoose using extension
+//schema is assigned and module exported to post collection in mongodb 
+
 const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
