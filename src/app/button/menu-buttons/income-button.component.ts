@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+//class is to assign the main page 
+//associated html and css code is added as components here
 
 @Component({
   selector: 'income-button',
@@ -7,6 +9,6 @@ import {Component} from '@angular/core';
 })
 export class IncomeComponent {
 
-  myimage1:string = "images/background.jpg";
+ // myimage1:string = "images/background.jpg";
 
 }
