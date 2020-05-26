@@ -8,6 +8,7 @@ import { ManagmentComponent } from './money-managment/managment-button.component
 // import { PostListComponent } from './button/blogs/new-blog/post-list/post-list.component';
 import { PostsService } from '../app/button/blogs/posts.service';
 
+//specifying page paths by class and button clicked 
 const routes: Routes = [
   { path : '', component: IncomeComponent },
   { path:'income', component: IncomeCard },
