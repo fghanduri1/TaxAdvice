@@ -1,3 +1,7 @@
+//class is used for specification of the navigation bar at the top
+//of every page 
+//button is specified in the html and css 
+
 import { Component } from '@angular/core';
 
 @Component({
