@@ -1,3 +1,6 @@
+//this class is used to process the front end of the tax calculator 
+//the respective html and css classes are added as components here too
+
 import { Component,ViewChild,ElementRef } from '@angular/core';
 import { ChangeDetectorRef, AfterViewChecked } from "@angular/core";
 import {fromEvent} from "rxjs"
@@ -8,7 +11,7 @@ import {map, throttleTime} from "rxjs/operators"
   styleUrls: [ 'income-card.component.css' ]
 })
 export class IncomeCard  {
-
+//setting the initial values of each inputted section
   @ViewChild('btnIncrease')
   btnIncrease : ElementRef;
 
@@ -28,11 +31,8 @@ constructor(private cdRef:ChangeDetectorRef){
 
 }
 
-  // marriedTaxableIncome: { children: number, false: number, true: number }[] = [
-
-  // ]
-
-
+//tax brackets are assigned with an id value that will be displayed and a tax rate percentage 
+//that will be used to multiply the income with 
   brackets: { id: number, taxRate: number, decrease: number, calculated: number }[] = [
     { id: 12500, taxRate: 0, decrease: 0, calculated: 0},
     { id: 14585, taxRate: 19, decrease: 0 , calculated: 0},
@@ -41,7 +41,7 @@ constructor(private cdRef:ChangeDetectorRef){
     { id: 150000, taxRate: 41, decrease: 0 , calculated: 0},
 
 ];
-
+//the martial status is retrieved and if single no exemptions will be added but if the user click m then an exemption is returned
 get familyExemptionAmount() {
   if(this.marital == "S")
     return 0
@@ -49,14 +49,20 @@ get familyExemptionAmount() {
     return 907
 }
 
+//since using the slider, the income inputted needs to multiplied 
 get totalIncome() {
   return this.income *1000 + this.incomeDetails
 }
 
+//the total income is calculated 
 get calcIncome() {
   return Math.max((this.totalIncome)  )//- this.familyExemptionAmount, 0)
 }
 
+//direct income tax is calculated using the brackets specified 
+//the income is devided into increments meaning that when each bracket
+//is reached its maximum value, the next bracket would be taken into account 
+//from each of these bracket divisions the total is calculated 
 get incomeIndex() {
   var prevEntry: any = this.brackets[0];
   var i: number = 1;
@@ -99,6 +105,9 @@ get totalTaxAmount() {
 updateIndex(income: any) {
 
 }
+
+//side label is created for visualisation and 
+//when tax value increases the label would also to
 formatLabel(value: number | null) {
     if (!value) {
       return 0;
