@@ -1,3 +1,7 @@
+//required packages are added and a path is assigned to a constant
+
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require ("mongoose");
@@ -7,6 +11,9 @@ const Post = require('./models/post');
 
 const app = express();
 
+
+//mongodb key goes here connecting to respective database
+//output is produced based on connection to see if it works
 mongoose.connect("ADD MONGODB KEY HERE")
  .then (() => {
     console.log('Connected to Database!')
@@ -32,7 +39,7 @@ app.use((req, res, next)=>{
   next();
 });
 
-
+//method for adding a new post successfully to the database 
 app.post('/api/posts',(req, res, next) =>{
   const post = new Post({
     title: req.body.title,
@@ -47,6 +54,8 @@ app.post('/api/posts',(req, res, next) =>{
 
 });
 
+
+//when a post is updated it would retive the initial posts Id and use that for the updated post 
 app.put("/api/posts/:id", (req, res, next) => {
   const post = new Post({
     _id: req.body.id,
@@ -58,7 +67,7 @@ app.put("/api/posts/:id", (req, res, next) => {
   });
 });
 
-
+//when page is loaded post are fetched from the dB
 app.get('/api/posts', (req, res, next) => {
     Post.find().then(documents => {
       res.status(200).json({
@@ -68,6 +77,8 @@ app.get('/api/posts', (req, res, next) => {
     });
 });
 
+
+//method used when a post is found by id and would return respective messages
 app.get('/api/posts/:id', (req, res, next) => {
   Post.findById(req.params.id).then(post => {
     if (post) {
@@ -78,6 +89,7 @@ app.get('/api/posts/:id', (req, res, next) => {
   });
 });
 
+//method used when post is deleted 
 app.delete("/api/posts/:id", (req, res, next) =>{
   Post.deleteOne({_id: req.params.id}).then(result =>{
     console.log(result);
